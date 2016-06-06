@@ -1,8 +1,8 @@
 <?php
 define('XHE_VERSION', '0.1');                                                               //版本号 
 define('START_TIME', microtime(true));                                                      //运行开始时间
-//define('MEMORY',memory_get_usage());                                                        //内存占用
-//define('MEMORY_PEAK',memory_get_peak_usage());                                              //内存峰值
+define('START_MEM',memory_get_usage());                                                     //内存占用
+define('START_MEME',memory_get_peak_usage());                                               //内存峰值
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);                                         //目录分隔符，是定义php的内置常量
 defined('APP_DEBUG') or define('APP_DEBUG',FALSE);                                          //是否开启调试模式
