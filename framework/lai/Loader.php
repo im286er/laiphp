@@ -14,6 +14,7 @@ class Loader{
      */
     public static function autoload($classname){
         
+        //分割 \ 为数组
         $classarr = explode('\\', $classname);
         
         //判断是否来自应用的命名空间
@@ -33,8 +34,6 @@ class Loader{
             //组合加载的路径
             $classfile = FK_PATH.$classname.'.php';
         }
-        
-        
         
         //加载文件
         self::loadfile($classfile);
@@ -65,11 +64,6 @@ class Loader{
         require $filepate;
         self::$fileArr[$md5file] = true;    //进行标记
         
-        //调用回调函数，并把一个数组参数作为回调函数的参数
-        //call_user_func_array(array(__NAMESPACE__.'\Debug','msg'), array($msg));
-        //写入调试载入信息
-        Debug::msg($filepate);
-        
         return true;
         
     }
@@ -80,13 +74,5 @@ class Loader{
     {
         //注册系统自动加载
         spl_autoload_register($autoload ? $autoload : __NAMESPACE__.'\\Loader::autoload');
-        //注册composer自动加载
-        //self::registerComposerLoader();
-    }
-    /**
-     * 注册composer自动加载
-     */
-    private static function registerComposerLoader(){
-        echo '注册composer自动加载','<br />';
     }
 }

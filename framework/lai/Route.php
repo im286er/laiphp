@@ -103,4 +103,14 @@ final class Route{
             return true;
         }
     }
+    /**
+     * 返回mvc
+     */
+    public static function urlvar(){
+        return array(
+            'module_var'=>self::$module_var,
+            'controller_var'=>self::$controller_var,
+            'action_var'=>self::$action_var
+        );
+    }
 }

@@ -1,39 +1,78 @@
 <?php
 namespace lai;
-
 /**
  * 日志-本地化调试输出到文件
  */
-class Filelog{
-    protected $config = [
-        'time_format' => ' c ',
+class Errlog{
+    /**
+     * 存放错误信息
+     */
+    protected static $logarr = array();
+    /**
+     * 储存日志到文件
+     */
+    protected static $config = array(
         'file_size'   => 2097152,
         'path'        => LOG_PATH,
-    ];
-
-    // 实例化并传入参数
-    public function __construct($config = [])
-    {
-        if (is_array($config)) {
-            $this->config = array_merge($this->config, $config);
+    );
+    
+    /**
+     * 记录日志内容
+     * @param string $message
+     * @param string $type
+     */
+    public static function set($message,$type="notice"){
+        //是否开启日志
+        if(empty(Config::load('log_start'))){
+            return false;
+        }
+        
+        //日志处理类型
+        if(in_array($type, Config::load('log_type'))){
+            $date= date('Y-m-d H:i:s');
+            //
+            self::$logarr[] = array(
+                'type'=>$type,
+                'msg'=>$message.'['.$date.']'."\r\n"
+            );
+            
+            if($type == 'error'){
+                //日志写入
+                self::save();
+            }
+            
         }
     }
+    
 
     /**
-     * 日志写入接口
+     * 日志写入
      * @access public
      * @param array $log 日志信息
      * @return bool
      */
-    public function save(array $log = [])
-    {
-        $now         = date($this->config['time_format']);
-        $destination = $this->config['path'] . date('y_m_d') . '.log';
-
-        !is_dir($this->config['path']) && mkdir($this->config['path'], 0755, true);
+    public static function save(){
+        //是否开启日志
+        if(empty(Config::load('log_start'))){
+            return false;
+        }
+        
+        //
+        if(count(self::$logarr) == 0){
+            return false;
+        }
+        
+        //以ISO 8601 格式的日期
+        $now = date('Y-m-d H:i:s');
+        
+        //保存的路径
+        $destination = self::$config['path'] . date('Y-m-d') . '.log';
+        
+        //保存的目录是否存在
+        !is_dir(self::$config['path']) && mkdir(self::$config['path'], 0755, true);
 
         //检测日志文件大小，超过配置大小则备份日志文件重新生成
-        if (is_file($destination) && floor($this->config['file_size']) <= filesize($destination)) {
+        if (is_file($destination) && floor(self::$config['file_size']) <= filesize($destination)) {
             rename($destination, dirname($destination) . DS . time() . '-' . basename($destination));
         }
 
@@ -51,13 +90,13 @@ class Filelog{
         $memory_str = " [内存消耗：{$memory_use}kb]";
         $file_load  = " [文件加载：" . count(get_included_files()) . "]";
 
-        array_unshift($log, [
+        self::$logarr[] = array(
             'type' => 'log',
             'msg'  => $current_uri . $time_str . $memory_str . $file_load,
-        ]);
+        );
 
         $info = '';
-        foreach ($log as $line) {
+        foreach (self::$logarr as $line) {
             $info .= '[' . $line['type'] . '] ' . $line['msg'] . "\r\n";
         }
 
@@ -67,5 +106,5 @@ class Filelog{
         $uri    = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
         return error_log("[{$now}] {$server} {$remote} {$method} {$uri}\r\n{$info}\r\n", 3, $destination);
     }
-
+    
 }

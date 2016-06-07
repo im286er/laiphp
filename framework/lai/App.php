@@ -20,12 +20,9 @@ class App{
                 
         //初始化配置
         self::init();
-        
-        
        
-        
-        //显示调试信息
-        Debug::show();
+        //日志写入
+        Errlog::save();
     }
     /**
      * 初始化配置
@@ -59,26 +56,13 @@ class App{
             //错误处理
             Errorset::error('没有这个类'.self::$module.'/'.self::$control.'方法');
         }
+        //判断是否有这个方法
         if(!method_exists($controls, $actions)){
             //错误处理
             Errorset::error('非法调用'.self::$module.'/'.self::$control.'/'.$actions.'方法');
         }
         
-        $controls->$actions();
-        //应用组合的控制器文件
-        //$control_file = APP_PATH.self::$module.DS.self::$controllerdir.DS.self::$control.'.php';
-        
-        //手动加载文件 应用控制器文件
-        //Loader::loadfile($control_file);
-        
-        //组合应用的控制器路径
-        //$control = '\\'.APP_NAMESPACE.'\\'.self::$module.'\\'.self::$controllerdir.'\\'.self::$control;
-        
-        //实例化对象或执行方法
-        //self::newobj($control, self::$action);
-        
-        
-        
+        $controls->$actions();  
         
     }
     /**
@@ -93,9 +77,6 @@ class App{
             $fkconfigarr = require $fkconfig;
             if(is_array($fkconfigarr)){
                 Config::load($fkconfigarr);
-                
-                //写入调试载入信息
-                Debug::msg($fkconfig);
             }
         }
         
@@ -105,9 +86,6 @@ class App{
             $appcnfigarr = require $appcnfig;
             if(is_array($appcnfigarr)){
                 Config::load($appcnfigarr);
-                
-                //写入调试载入信息
-                Debug::msg($appcnfig);
             }
         }
         
@@ -117,9 +95,6 @@ class App{
             $appdatabasearr = require $appdatabase;
             if(is_array($appdatabasearr)){
                 Config::load($appdatabasearr);
-                
-                //写入调试载入信息
-                Debug::msg($appdatabase);
             }
         }
         
@@ -182,8 +157,6 @@ class App{
                 $obj = new $classname();
             }else{
                 
-                //写入调试载入信息
-                Debug::msg($classname,false);
                 return false;
             }
             
@@ -194,20 +167,16 @@ class App{
                     if(empty($atgs)){
                         self::$result[$md5name] = $obj->$methodname();
                     }else{
+                        //调用回调函数，并把一个数组参数作为回调函数的参数
                         self::$result[$md5name] = call_user_func_array(array(&$obj,$methodname), $atgs);
                     }
                 }else{
                     
-                    //写入调试载入信
-                    Debug::msg($classname.'->'.$methodname.'()',false);
                     return false;
                 }
                 
             }else{
                 self::$result[$md5name] = $obj;
-                
-                //写入调试载入信
-                Debug::msg($classname);
             }
         }
         return self::$result[$md5name];
