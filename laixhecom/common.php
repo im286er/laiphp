@@ -10,6 +10,11 @@
 define('STATIC_PATH','/static/');
 
 /**
+ * 定义应用的静态目录
+ */
+define('STATIC_INDEX_PATH','/static/index/');
+
+/**
  * 定义共公Bootstrap目录
  */
 define('BOOTSTRAP_PATH', STATIC_PATH.'bootstrap/');
@@ -31,20 +36,4 @@ define('PUIMG_PATH', STATIC_PATH.'images/');
 define('LIBRARY_PATH', STATIC_PATH.'library/');
 
 
-/**
- * 定义不在应用的资源域名(图片)
- */
-define('GORE_IMG_PATH', 'http://net.91cb');
-/**
- * 定义不在应用的资源域名(视频)
- */
-define('GORE_VO_PATH', 'http://net.91cb');
-/**
- * 定义不在应用的资源域名(跳转)
- */
-define('GORE_GO_PATH', 'http://net.91cb');
-/**
- * 定义不在应用的资源域名(上传文件)
- */
-define('GORE_UD_PATH', 'http://net.91cb.upload');
 

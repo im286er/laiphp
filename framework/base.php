@@ -7,8 +7,8 @@ define('START_MEME',memory_get_peak_usage());                                   
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);                                         //目录分隔符，是定义php的内置常量
 defined('APP_DEBUG') or define('APP_DEBUG',FALSE);                                          //是否开启调试模式
 
-defined('FK_PATH') or define('FK_PATH', dirname(__FILE__) . DS);                            //框加主目录
-define('LAI_PATH', FK_PATH . 'lai' . DS);                                                   //框加核心目录
+defined('FK_PATH') or define('FK_PATH', dirname(__FILE__) . DS);                            //框架主目录
+define('LAI_PATH', FK_PATH . 'lai' . DS);                                                   //框架核心目录
 
 defined('APP_PATH') or define('APP_PATH', dirname($_SERVER['SCRIPT_FILENAME']). DS);        //定义应用目录
 defined('APP_NAMESPACE') or define('APP_NAMESPACE', 'app');                                 //应用根命名空间
@@ -22,5 +22,13 @@ defined('LOG_PATH') or define('LOG_PATH', RUNTIME_PATH . 'log' . DS);           
 defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'cache' . DS);                 //运行时目录，存放应用的缓存
 defined('TEMP_PATH') or define('TEMP_PATH', RUNTIME_PATH . 'temp' . DS);                    //运行时目录，存放应用的临时
 
-
-
+//加载框架公共（函数）文件
+$fkcommon = FK_PATH.'common.php';
+if(is_file($fkcommon)){
+    require $fkcommon;
+}
+//加载应用公共（函数）文件
+$appcommon = APP_PATH.'common.php';
+if(is_file($appcommon)){
+    require $appcommon;
+}

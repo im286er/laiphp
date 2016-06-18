@@ -1,0 +1,35 @@
+[2016-06-18 21:08:44] 127.0.0.1 127.0.0.1 GET /
+[notice] :[8]Use of undefined constant BOOTSTRAP_PATH - assumed 'BOOTSTRAP_PATH' FILE: E:\www\laiphp\laixhecom\index\view\Index\index.php[9][2016-06-18 21:08:44]
+
+[notice] :[8]Use of undefined constant STATIC_INDEX_PATH - assumed 'STATIC_INDEX_PATH' FILE: E:\www\laiphp\laixhecom\index\view\Index\index.php[10][2016-06-18 21:08:44]
+
+[notice] :[8]Use of undefined constant BOOTSTRAP_PATH - assumed 'BOOTSTRAP_PATH' FILE: E:\www\laiphp\laixhecom\index\view\Index\index.php[14][2016-06-18 21:08:44]
+
+[notice] :[8]Use of undefined constant BOOTSTRAP_PATH - assumed 'BOOTSTRAP_PATH' FILE: E:\www\laiphp\laixhecom\index\view\Index\index.php[15][2016-06-18 21:08:44]
+
+[notice] :[8]Use of undefined constant PUJS_PATH - assumed 'PUJS_PATH' FILE: E:\www\laiphp\laixhecom\index\view\Index\index.php[18][2016-06-18 21:08:44]
+
+[notice] :[8]Use of undefined constant BOOTSTRAP_PATH - assumed 'BOOTSTRAP_PATH' FILE: E:\www\laiphp\laixhecom\index\view\Index\index.php[19][2016-06-18 21:08:44]
+
+[log] test.com/ [运行时间：0.018299s] [吞吐率：54.65req/s] [内存消耗：172.41kb] [文件加载：15]
+
+[2016-06-18 21:08:44] 127.0.0.1 127.0.0.1 GET /BOOTSTRAP_PATHcss/bootstrap.min.css
+[error] 文件E:\www\laiphp\laixhecom\BOOTSTRAP_PATHcss\controller\bootstrap.min.css.php不存在[2016-06-18 21:08:44]
+
+[log] test.com/BOOTSTRAP_PATHcss/bootstrap.min.css [运行时间：0.007001s] [吞吐率：142.84req/s] [内存消耗：147.28kb] [文件加载：12]
+
+[2016-06-18 21:08:44] 127.0.0.1 127.0.0.1 GET /STATIC_INDEX_PATHcss/main.css
+[error] 文件E:\www\laiphp\laixhecom\STATIC_INDEX_PATHcss\controller\main.css.php不存在[2016-06-18 21:08:44]
+
+[log] test.com/STATIC_INDEX_PATHcss/main.css [运行时间：0.007985s] [吞吐率：125.24req/s] [内存消耗：147.23kb] [文件加载：12]
+
+[2016-06-18 21:08:44] 127.0.0.1 127.0.0.1 GET /PUJS_PATHjquery1.js
+[error] 文件E:\www\laiphp\laixhecom\PUJS_PATHjquery1.js\controller\Index.php不存在[2016-06-18 21:08:44]
+
+[log] test.com/PUJS_PATHjquery1.js [运行时间：0.008038s] [吞吐率：124.41req/s] [内存消耗：147.04kb] [文件加载：12]
+
+[2016-06-18 21:08:44] 127.0.0.1 127.0.0.1 GET /BOOTSTRAP_PATHjs/bootstrap.min.js
+[error] 文件E:\www\laiphp\laixhecom\BOOTSTRAP_PATHjs\controller\bootstrap.min.js.php不存在[2016-06-18 21:08:44]
+
+[log] test.com/BOOTSTRAP_PATHjs/bootstrap.min.js [运行时间：0.007960s] [吞吐率：125.63req/s] [内存消耗：147.36kb] [文件加载：12]
+

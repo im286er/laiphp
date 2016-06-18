@@ -24,24 +24,6 @@ class Errorset{
      * @param  integer $errline 出错行号
      */
     public static function appError($errno,$errstr,$errfile,$errline){
-        switch ($errno){
-            case E_ERROR:
-            case E_USER_ERROR:
-                $errmsg = ':['.$errno.']'.$errstr.' FILE: '.$errfile.'['.$errline.']';
-                //错误处理
-                self::error($errmsg);
-                break;
-            case E_NOTICE:
-            case E_USER_NOTICE:
-            case E_USER_WARNING:
-                $errmsg = ':['.$errno.']'.$errstr.' FILE: '.$errfile.'['.$errline.']';
-                //提示错误
-                self::notice($errmsg);
-                break;
-        }
-        
-        
-        
         
     }
     /**
@@ -50,15 +32,13 @@ class Errorset{
     public static function error($msg=''){
         //产生一条 PHP 的回溯跟踪(错误信息)
         //$backtrace = debug_backtrace();
-        Errlog::set($msg,'error');
-        exit();
+        
     }
     /**
      * 提示错误
      */
     public static function notice($msg=''){
-        Errlog::set($msg,'notice');
-        //exit();
+        
     }
     /**
      * 异常处理 Exception Handler

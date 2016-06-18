@@ -1,0 +1,11 @@
+jquery		JQuery 零散插件
+cxcalendar 	JQuery 日历选择器
+cxdialog	JQuery 对话框
+dialog 		JQuery 对话框
+cxdate		JQuery 日期格式化
+validation	JQuery 表单验证
+uploadify 	JQuery flash 上传文件插件
+webuploader 	JQuery 百度  上传文件插件
+ueditor 	百度 UEditor 编辑器
+ckplayer	视频播放器
+jwplayer	视频播放器

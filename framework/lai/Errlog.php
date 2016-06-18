@@ -1,7 +1,7 @@
 <?php
 namespace lai;
 /**
- * 日志-本地化调试输出到文件
+ * 错误日志-本地化调试输出到文件
  */
 class Errlog{
     /**
@@ -19,9 +19,9 @@ class Errlog{
     /**
      * 记录日志内容
      * @param string $message
-     * @param string $type
+     * @param string $type ('sql','notice','error')
      */
-    public static function set($message,$type="notice"){
+    public static function set($message,$type='notice'){
         //是否开启日志
         if(empty(Config::load('log_start'))){
             return false;

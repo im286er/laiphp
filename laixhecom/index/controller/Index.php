@@ -1,19 +1,14 @@
 <?php
 namespace app\index\controller;
 /**
- *
+ * 首页
  */
 class Index{
     public function index(){
-        //trigger_error('错误',E_USER_NOTICE);
-        //echo 'index index index';
-        $user = new \app\index\model\User();
-        //throw new \Exception('异常');
-        $user->add();
         
+        //实例化视图
         $View = new \lai\View();
-        $View->assign('name','laiki');
-        
+        //获取模板内容
         $View->fetch();
     }
     
