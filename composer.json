@@ -13,3 +13,19 @@
     ],
 	"version": "0.0.1"
 }
+{
+    "name": "laixhe/laiphp",
+    "type": "library",
+    "description": "Laiphp is a small PHP light (learning) framework",
+    "homepage": "https://github.com/laixhe/laiphp",
+    "authors": [
+        {
+            "name": "laixhe",
+            "email": "laixhe@laixhe.com"
+        }
+    ],
+	"version": "0.0.1",
+    "require": {
+        "php": ">=5.3.3"
+    }
+}
