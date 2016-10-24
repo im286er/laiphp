@@ -1,0 +1,11 @@
+{
+    "name": "laixhe/laiphp",
+	"description": "Laiphp is a small PHP light (learning) framework",
+    "authors": [
+        {
+            "name": "laixhe",
+            "email": "laixhe@laixhe.com"
+        }
+    ],
+	"version": "0.0.1"
+}
