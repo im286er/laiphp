@@ -1,6 +1,10 @@
 {
     "name": "laixhe/laiphp",
 	"description": "Laiphp is a small PHP light (learning) framework",
+	"require": {
+        "php": "^5.3.3 || ^7.0",
+        "another-vendor/package": "1.*"
+    }
     "authors": [
         {
             "name": "laixhe",
