@@ -61,6 +61,25 @@ class Strings {
         }
         return $suffix ? $slice.'...' : $slice;
     }
+	
+	
+    /**
+     * 截取字符串(utf-8)
+     * @param string $str 字符串
+     * @param int $start 开始位置
+     * @param int $length 截取长度(字节)中文三个字节
+     * @return string
+     */
+    public static function subJsonEncode($str,$start=0,$length=10){
+        $data = substr($str, $start,$length);
+        
+        if(json_encode($data) == false){
+            $data = self::subJsonEncode($str, $start,$length+1);
+        }
+        
+        return $data;
+    }
+    
 
     /**
      * 产生随机字串，可用来自动生成密码
@@ -183,7 +202,9 @@ class Strings {
         return sprintf("%0".strlen($max)."d", mt_rand($min,$max));
     }
 
-    // 自动转换字符集 支持数组转换
+    /**
+	 * 自动转换字符集 支持数组转换
+	 */
     public static function autoCharset($string, $from='gbk', $to='utf-8') {
         $from = strtoupper($from) == 'UTF8' ? 'utf-8' : $from;
         $to = strtoupper($to) == 'UTF8' ? 'utf-8' : $to;
@@ -212,6 +233,7 @@ class Strings {
             return $string;
         }
     }
+	
     /**
      * @param string $string 原文或者密文
      * @param string $operation 操作(ENCODE | DECODE), 默认为 DECODE
@@ -282,6 +304,7 @@ class Strings {
         }
     
     }
+	
 	/**
 	 * 分割字符串为数组(一维数组)
 	 * @param string $str 要分割字符串
@@ -322,6 +345,7 @@ class Strings {
 			}
 		}
 	}
+	
 	/**
 	 * 分割字符串并判断是否包含在内
 	 * @param string $str 要分割字符串
@@ -343,6 +367,7 @@ class Strings {
 	    }
 	
 	}
+	
 	/**
 	 * 加密
 	 */
@@ -358,6 +383,7 @@ class Strings {
 	        return bin2hex($cipherText);
 	    }
 	}
+	
 	/**
 	 * 解密
 	 */
@@ -375,8 +401,9 @@ class Strings {
 	        return $decrypted_data;
 	    }
 	}
+	
 	/**
-	 * 
+	 * 为Decrypt解密用的
 	 */
 	public static function Hexbin($str){
 	    if (!is_string($str)) return null;
@@ -389,6 +416,7 @@ class Strings {
 	    
 	    return $r;
 	}
+	
 	/**
 	 * 获取访客系统
 	 */
