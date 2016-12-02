@@ -3,7 +3,7 @@ return array(
     // +----------------------------------------------------------------------
     // | 开发状态 develop开发  product正式
     // +----------------------------------------------------------------------
-    'web_version'=>'develop',
+    'web_version'=>'product',
     
     // +----------------------------------------------------------------------
     // | 数据库设置
@@ -13,11 +13,11 @@ return array(
     // 服务器地址
     'hostname'       => 'localhost',
     // 数据库名
-    'database'       => '',
+    'database'       => 'newfenboo2015',
     // 数据库用户名
-    'username'       => '',
+    'username'       => 'root',
     // 数据库密码
-    'password'       => '',
+    'password'       => '25892326',
     // 数据库连接端口
     'hostport'       => '3306',
     // 数据库编码默认采用utf8
@@ -43,7 +43,7 @@ return array(
     'url_route_on'           => true,
     // URL伪静态后缀
     'url_html_suffix'        => 'html',
-    //url第四个参数 -> 用 $_GET['url_id'] 接收
+    // url第四个参数 -> 用 $_GET['url_id'] 接收
     'url_var_id'             => 'url_id',
     
     

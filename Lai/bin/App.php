@@ -3,6 +3,9 @@
  * 项目处理类
  */
 class App{
+    /**
+     * 标记 实例化对象或执行方法(动态控制器)
+     */
     private static $result = array();
     
     
@@ -24,14 +27,17 @@ class App{
      */
     private static function init(){
         
-        //初始化配置文件处理
+        //初始化配置文件
         self::config();
+        
+        //加载公共函数库
+        self::common();
         
         
         //判断是否开启路由
         if(!empty(\library\bin\Config::load('url_route_on'))){
             
-            //默认URL设置
+            //默认配置URL设置
             \library\bin\Url::$urlinfo['moeule'] = \library\bin\Config::load('default_module');
             \library\bin\Url::$urlinfo['controller'] = \library\bin\Config::load('default_controller');
             \library\bin\Url::$urlinfo['action'] = \library\bin\Config::load('default_action');
@@ -41,19 +47,22 @@ class App{
             //解析URL
             \library\bin\Url::parseUrl();
             
+            //取出解析后的URL
             $moeule = \library\bin\Url::$urlinfo['moeule'];
             $control = \library\bin\Url::$urlinfo['controller'];
             $action = \library\bin\Url::$urlinfo['action'];
             
             
             //拼接 控制器 的路径
-            $control_file = APP_PATH.DS.$moeule.DS.'controller'.DS.$control.'.php';
+            $control_file = APP_PATH.$moeule.DS.'controller'.DS.$control.'.php';
             //加载 控制器 的路径
             if(Loadfile::runLoad($control_file)){
-            
+                
+                //拼接 控制器
                 $controlurl = '\\app\\'.$moeule.'\\controller\\'.$control;
-                $control = new $controlurl();
-                $control->$action();
+                
+                //
+                self::executeMethod($controlurl,$action);
             
             }
             
@@ -65,17 +74,47 @@ class App{
     }
     
     
-    
     /**
-     * 初始化配置文件处理
+     * 加载(初始化)配置文件
      */
     private static function config(){
         
-        //加载库的配置项
+        //加载默认配置项
         if(is_file(LAIPHP_DIR.'config.php')){
-        
-            //加载配置
+            
+            //加载默认配置
             \library\bin\Config::load(require LAIPHP_DIR.'config.php');
+            
+        }
+        
+        //加载应用配置项
+        if(is_file(APP_PATH.'config.php')){
+
+            //加载应用配置
+            \library\bin\Config::load(require APP_PATH.'config.php');
+            
+        }
+        
+    }
+    
+    /**
+     * 加载公共函数库
+     */
+    private static function common(){
+
+        //加载默认公共函数库
+        if(is_file(LAIPHP_DIR.'common.php')){
+        
+            //加载默认公共函数库
+            \library\bin\Config::load(require LAIPHP_DIR.'common.php');
+        
+        }
+        
+        //加载应用函数库
+        if(is_file(APP_PATH.'common.php')){
+        
+            //加载应用函数库
+            \library\bin\Config::load(require APP_PATH.'common.php');
         
         }
         
@@ -114,47 +153,54 @@ class App{
     }
     
     /**
-     * 实例化对象或执行方法
+     * 实例化对象或执行方法(动态控制器)
      * @param string $class  类名
      * @param string $method 方法名
-     * @param array $args    参数
      */
-    private static function executeMethod($class,$method='',$args=array()){
+    public static function executeMethod($class,$method=''){
         
-        $name = empty($args) ? md5($class.$method) : md5($class.$method.serialize($args));
+        $name = md5($class.$method);
         
         //判断是否已经使用过
         if(empty(self::$result[$name])){
             
-            //实例化
-            $obj = new $class();
-            
-            //判断是否有这个方法
-            if(!empty($method) && method_exists($obj, $method)){
+            //判断是否有这个类
+            if(class_exists($class)){
                 
-                //判断是否有参数
-                if(!empty($args)){
-                    
-                    call_user_func_array(array(&$obj,$method), array($args));
-                    self::$result[$name] = true;
-                    
-                }else{
-                    
-                    $obj->$method();
-                    self::$result[$name] = true;
-                    
-                }
+                //实例化(动态类)
+                $obj = new $class();
+                
                 
             }else{
-                
-                self::$result[$name] = $obj;
-                
-            }//判断是否有这个方法
+                exit('没有这个类：new '.$class.'()');
+            }
             
+            //没有方法
+            if(empty($method)){
+                
+                //标记
+                self::$result[$name] = true;
+                return $obj;
+                
+            }
+            
+            //判断是否有这个方法
+            if(method_exists($obj, $method)){
+                 
+                //调用(动态方法)
+                $obj->$method();
+                
+                //标记
+                self::$result[$name] = true;
+                
+            }else{
+                exit('没有这个方法：new '.$class.'()->'.$method.'()');
+            }
             
         }
         
-        return self::$result[$name];
+        return true;
+        
     }
     
     

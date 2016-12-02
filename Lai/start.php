@@ -12,6 +12,9 @@ require LAIPHP_DIR.'bin'.DS.'Loadfile.php';
 //引入 项目处理类
 require LAIPHP_DIR.'bin'.DS.'App.php';
 
+
+
+
 //开启session
 //session_start();
 
