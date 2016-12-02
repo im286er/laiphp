@@ -50,7 +50,7 @@ if(!defined('APP_PATH')){
     /**
      * 项目 目录路径
      */
-    define('APP_PATH', ROOT_PATH.'app');
+    define('APP_PATH', ROOT_PATH.'app'.DS);
 }
 
 

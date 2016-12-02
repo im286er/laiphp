@@ -17,21 +17,30 @@ class Loadfile{
      */
     public static function runLoad($file){
         
+        //返回规范化的绝对路径名
+        $file = realpath($file);
         $strmd5 = md5($file);
         if(empty(self::$filearr[$strmd5])){
             
             if(is_file($file)){
+                
                 //进行引入文件
                 require $file;
+                
                 //标记已引入
                 self::$filearr[$strmd5] = true;
                 //写入信息
                 self::$fileinfo[] = $file;
+                
             }else{
+                
                 self::$fileinfo[] = $file.' 文件不存在!';
+                
+                return false;
             }
             
         }
         
+        return true;
     }
 }
