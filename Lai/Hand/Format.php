@@ -1,5 +1,5 @@
 <?php
-namespace hand;
+namespace library\hand;
 /**
  * 常用的验证类
  */

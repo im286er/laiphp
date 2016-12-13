@@ -1,5 +1,5 @@
 <?php
-namespace hand;
+namespace library\hand;
 /**
  * 将中文转为拼音
  */

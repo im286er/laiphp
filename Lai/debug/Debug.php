@@ -16,9 +16,8 @@ class Debug{
     
     /**
      * 显示错误
-     * @param int $tyid 显示类型:1=打印js,2=返回array
      */
-    public static function show($tyid=1){
+    public static function show(){
         
         //存放信息
         $info_all = array();
@@ -46,21 +45,7 @@ class Debug{
         $info_all['7语句sql'] = self::$debug['sql'];
         $info_all['8调试日志'] = self::$debug['log'];
         
-        switch ($tyid){
-            case 1:
-                
-                echo '<script type="text/javascript">';
-                echo 'console.log(',json_encode($info_all),')';
-                echo '</script>';
-                
-                break;
-            case 2:
-                
-                return $info_all;
-            default:
-                
-                return $info_all;
-        }
+        print_r($info_all);
         
     }
     

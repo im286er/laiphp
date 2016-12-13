@@ -1,9 +1,9 @@
 <?php
-namespace Tool;
+namespace library\image;
 /**
  * 图片处理类
  */
-class Image{
+class Handle{
 	/**
 	 * 分析图片的信息
 	 * @param string $image 图片

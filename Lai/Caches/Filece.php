@@ -1,5 +1,5 @@
 <?php
-namespace Caches;
+namespace library\caches;
 /**
  * 缓存文件操作类
  */

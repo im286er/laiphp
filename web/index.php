@@ -9,12 +9,5 @@ date_default_timezone_set('PRC');
  */
 //define('APP_PATH', dirname(__DIR__).'/app/');
 
-//引框架
+//引入框架
 require dirname(__DIR__).'/Lai/start.php';
-
-
-echo '<pre>';
-
-\library\debug\Debug::show();
-echo 'get <br />';
-print_r($_GET);

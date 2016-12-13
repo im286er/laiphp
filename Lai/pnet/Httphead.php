@@ -1,9 +1,10 @@
 <?php
-namespace pnet;
+namespace library\pnet;
+
 /**
  * Http 工具
  */
-class Http {
+class Httphead {
     /**
 	 * 是否为一个异步的请求，此验证需要jQuery支持
 	 * @return boolean

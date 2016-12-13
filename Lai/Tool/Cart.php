@@ -1,5 +1,6 @@
 <?php
-namespace Tool;
+namespace library\tool;
+
 /**
  * 购物车类
  */

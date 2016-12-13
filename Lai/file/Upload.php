@@ -1,9 +1,9 @@
 <?php
-namespace Comtool;
+namespace library\file;
 /**
  * 上传文件类
  */
-class File{
+class Upload{
 	//设置附件上传类型 上传错误提示错误信息
 	protected $exts = array('jpg','jpeg','gif','bmp','png');
 	//设置附件上传大小以MB单位

@@ -1,5 +1,5 @@
 <?php
-namespace Lai\Hand;
+namespace library\hand;
 /**
  * 处理字符串
  */

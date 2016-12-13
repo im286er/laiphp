@@ -1,5 +1,5 @@
 <?php
-namespace  Lai\Rpc;
+namespace  library\Rpc;
 
 class YarClient
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Tool;
+namespace library\image;
 /**
  * 验证码类
  */

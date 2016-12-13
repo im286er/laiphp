@@ -1,5 +1,6 @@
 <?php
-namespace Tool;
+namespace library\tool;
+
 /**
  * 分页类
  * @param int $total 	总条数

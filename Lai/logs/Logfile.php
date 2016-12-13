@@ -1,6 +1,10 @@
 <?php
-namespace Lai\Logs;
-class Files {
+namespace library\Logs;
+
+/**
+ * 写日志
+ */
+class Logfile {
     protected $logconif = [
         'logpath'=>'',
         'logname'=>'weblog.log',
