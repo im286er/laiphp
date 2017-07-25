@@ -38,11 +38,11 @@ define('DS', DIRECTORY_SEPARATOR);
 /**
  * 框架目录路径
  */
-define('LAIPHP_DIR', __DIR__.DS);
+define('LIBRARY_PATH', __DIR__.DS);
 /**
  * 根目录路径
  */
-define('ROOT_PATH', dirname(LAIPHP_DIR).DS);
+define('ROOT_PATH', dirname(LIBRARY_PATH).DS);
 
 
 //判断是否定义应用目录路径

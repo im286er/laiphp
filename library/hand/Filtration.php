@@ -34,7 +34,8 @@ class Filtration{
         return $str;
     
     }
-   
+
+
     /**
      * 截取内容和过滤html、php标签
      * @param string $conte 内容
@@ -43,17 +44,19 @@ class Filtration{
      * @return string
      */
     public static function jxstrcon($conte,$len=100,$str=''){
-        
+
         if(empty($conte)){
             return $str;
         }
-        
-        $jxconte = str_replace(array('&lt;','p&gt;','/p&gt;','br&gt;','br /&gt;','&amp;','&nbsp;',' ','　'),'',strip_tags(htmlspecialchars_decode($conte)));
-        
-        if(mb_strlen($jxconte,'UTF-8') < $len){
+
+        $jx = array('&lt;','p&gt;','/p&gt;','br&gt;','br /&gt;','&amp;','&nbsp;',' ','　');
+        $jxconte = str_replace($jx,'',strip_tags(htmlspecialchars_decode($conte)));
+
+        if(strlen($jxconte) < $len){
             return $jxconte;
         }else{
-            return mb_substr($jxconte,0, $len,'UTF-8').'...';
+            //处理字符串 - 截取字符串
+            return Strings::subJsonEncode($jxconte,0,$len);
         }
     }
 	

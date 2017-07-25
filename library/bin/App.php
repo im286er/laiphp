@@ -1,4 +1,6 @@
 <?php
+namespace library\bin;
+
 /**
  * 项目处理类
  */
@@ -72,18 +74,17 @@ class App{
         
         
     }
-    
-    
+
     /**
      * 加载(初始化)配置文件
      */
     private static function config(){
         
         //加载默认配置项
-        if(is_file(LAIPHP_DIR.'config.php')){
+        if(is_file(LIBRARY_PATH.'config.php')){
             
             //加载默认配置
-            \library\bin\Config::load(require LAIPHP_DIR.'config.php');
+            \library\bin\Config::load(require LIBRARY_PATH.'config.php');
             
         }
         
@@ -103,10 +104,10 @@ class App{
     private static function common(){
 
         //加载默认公共函数库
-        if(is_file(LAIPHP_DIR.'common.php')){
+        if(is_file(LIBRARY_PATH.'common.php')){
         
             //加载默认公共函数库
-            \library\bin\Config::load(require LAIPHP_DIR.'common.php');
+            \library\bin\Config::load(require LIBRARY_PATH.'common.php');
         
         }
         
@@ -129,12 +130,7 @@ class App{
         if(!empty($classname)){
             $classExplode = explode('\\', $classname);
             
-            if($classExplode[0] == 'library'){
-                
-                array_shift($classExplode);//移出第一个
-                $str = LAIPHP_DIR.implode(DS,$classExplode).'.php';
-                
-            }elseif ($classExplode[0] == 'extend'){
+            if ($classExplode[0] == 'extend'){
                 
                 $str = ROOT_PATH.implode(DS,$classExplode).'.php';
                 

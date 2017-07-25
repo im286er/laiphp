@@ -1,4 +1,6 @@
 <?php
+namespace library\bin;
+
 /**
  * 文件引入类
  */

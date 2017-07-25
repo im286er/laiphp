@@ -9,19 +9,19 @@ namespace library\tool;
  */
 class Page{
 	//当前的页码
-	private $_page = 0;
+	protected $_page = 0;
 	//每页的条数
-	private $_pageSize = 0;
+	protected $_pageSize = 0;
 	//总条数
-	private $_total = 0;
+    protected $_total = 0;
 	//总页码
-	private $_pagenum = 0;
+    protected $_pagenum = 0;
 	//limit翻页
-	private $_limit = '';
+    protected $_limit = '';
 	//URL地址
-	private $_url = '';
+    protected $_url = '';
 	//保持数字分页两边的数量
-	private $_bothunm = 0;
+    protected $_bothunm = 0;
 	
 	/**
 	 * 构造方法初始化
@@ -31,14 +31,16 @@ class Page{
 	 * @param int $bothunm  保持数字分页两边的数量(默认为 3)
 	 */
 	public function __construct($total,$pageSize,$bothunm=3){
-		$this->_total = $total;										//总条数
-		$this->_pageSize = $pageSize;								//每页的条数
-		$this->_pagenum = ceil($this->_total / $this->_pageSize);	//总页码
-		$this->_page = $this->_setPage();							//当前的页码
-		$this->_limit = 'LIMIT '.($this->_page-1)*$this->_pageSize.','.$this->_pageSize;	//limit翻页
-		$this->_url = $this->_setUrl();		//URL地址
-		$this->_bothunm = $bothunm;			//保持数字分页两边的数量
+
+		$this->_total = $total;										                            //总条数
+		$this->_pageSize = $pageSize;								                            //每页的条数
+		$this->_pagenum = ceil($this->_total / $this->_pageSize);	                        //总页码
+		$this->_page = $this->_setPage();							                            //当前的页码
+		$this->_limit = 'LIMIT '.($this->_page-1)*$this->_pageSize.','.$this->_pageSize;	    //limit翻页
+		$this->_url = $this->_setUrl();		                                                    //URL地址
+		$this->_bothunm = $bothunm;			                                                    //保持数字分页两边的数量
 	}
+
 	/**
 	 * 拦截器
 	 */
@@ -55,7 +57,7 @@ class Page{
 	/**
 	 * 获取当前页码
 	 */
-	private function _setPage(){
+    protected function _setPage(){
 		$page = empty($_GET['page']) ? 1 : intval($_GET['page']);
 		//不能小于1
 		if($page <= 0){
@@ -71,10 +73,7 @@ class Page{
 	/**
 	 * 获取URL地址
 	 */
-	private function _setUrl(){
-	    /**
-	     * 主要的
-	     */
+    protected function _setUrl(){
 		//当前的url地址
 		$url = $_SERVER['REQUEST_URI'];
 		//分折当前的url地址
@@ -95,11 +94,13 @@ class Page{
 		}
 		return $url;
 	}
+
 	/**
 	 * 数字目录
 	 */
-	private function _pageList(){
+    protected function _pageList(){
 		$pagelist = '';
+
 		//前部分
 		for($i=$this->_bothunm;$i>=1;$i--){
 			$page = $this->_page - $i;
@@ -107,8 +108,10 @@ class Page{
 			if ($page < 1) continue;
 			$pagelist .= '<a href="'.$this->_url.$page.'">'.$page.'</a>';
 		}
+
 		//当前页
 		$pagelist .= '<span class="curr">'.$this->_page.'</span>';
+
 		//后部分
 		for($i=1;$i<=$this->_bothunm;$i++){
 			$page = $this->_page + $i;
@@ -116,57 +119,66 @@ class Page{
 			if ($page > $this->_pagenum) break;
 			$pagelist .= '<a href="'.$this->_url.$page.'">'.$page.'</a>';
 		}
+
 		return $pagelist;
 	}
+
 	/**
 	 * 首页
 	 */
-	private function _first(){
+    protected function _first(){
 		//当前页要大于保持数字分页两边的数量
 		if ($this->_page > ($this->_bothunm + 1)){
 			return '<a href="'.$this->_url.'1">1</a>...';
 		}
-		
 	}
+
 	/**
 	 * 上一页
 	 */
-	private function _prev(){
+    protected function _prev(){
 		//当前页是第一页
 		if ($this->_page==1){
 			return '<a href="javascript:;">上一页</a>';
 		}
+
 		return '<a href="'.$this->_url.($this->_page-1).'">上一页</a>';
 	}
+
 	/**
 	 * 下一页
 	 */
-	private function _next(){
+    protected function _next(){
 		//当前页等于总页数
 		if ($this->_page == $this->_pagenum){
 			return '<a href="javascript:;">下一页</a>';
 		}
+
 		return '<a href="'.$this->_url.($this->_page+1).'">下一页</a>';
 	}
+
 	/**
 	 * 末页
 	 */
-	private function _last(){
+    protected function _last(){
 		//当总页数减当前页数要大于保持数字分页两边的数量
 		if(($this->_pagenum - $this->_page) > $this->_bothunm){
 			return '...<a href="'.$this->_url.$this->_pagenum.'">'.$this->_pagenum.'</a>';
 		}
 	}
+
 	/**
 	 * 分页信息
 	 */
 	public function showpage(){
+
 		$pagea = '';
 		$pagea .=$this->_prev();
 		$pagea .=$this->_first();
 		$pagea .=$this->_pageList();
 		$pagea .=$this->_last();
 		$pagea .=$this->_next();
+
 		return $pagea;
 	}	
 }

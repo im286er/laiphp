@@ -1,5 +1,5 @@
 <?php
-namespace library\sql;
+namespace library\db;
 
 use PDO;
 use PDOException;
