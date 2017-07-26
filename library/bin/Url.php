@@ -14,10 +14,10 @@ class Url{
      * 默认url信息
      */
     public static $urlinfo = array(
-        'moeule' => 'index',
+        'moeule'     => 'index',
         'controller' => 'index',
-        'action' => 'index',
-        'url_var_id'=>'url_id',
+        'action'     => 'index',
+        'url_var_id' => 'url_id',
         'htmlsuffix' => 'html'
     );
     

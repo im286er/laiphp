@@ -21,7 +21,7 @@ class App{
         
         //初始化配置
         self::init();
-        
+
     }
     
     /**
@@ -34,29 +34,22 @@ class App{
         
         //加载公共函数库
         self::common();
-        
-        
+
+        //进行路由相关配置
+        $isroute = self::setRoute();
+
         //判断是否开启路由
-        if(!empty(\library\bin\Config::load('url_route_on'))){
-            
-            //默认配置URL设置
-            \library\bin\Url::$urlinfo['moeule'] = \library\bin\Config::load('default_module');
-            \library\bin\Url::$urlinfo['controller'] = \library\bin\Config::load('default_controller');
-            \library\bin\Url::$urlinfo['action'] = \library\bin\Config::load('default_action');
-            \library\bin\Url::$urlinfo['url_id'] = \library\bin\Config::load('url_var_id');
-            \library\bin\Url::$urlinfo['htmlsuffix'] = \library\bin\Config::load('url_html_suffix');
-            
-            //解析URL
-            \library\bin\Url::parseUrl();
-            
+        if($isroute){
+
             //取出解析后的URL
-            $moeule = \library\bin\Url::$urlinfo['moeule'];
-            $control = \library\bin\Url::$urlinfo['controller'];
-            $action = \library\bin\Url::$urlinfo['action'];
+            $moeule  = Url::$urlinfo['moeule'];
+            $control = Url::$urlinfo['controller'];
+            $action  = Url::$urlinfo['action'];
             
             
             //拼接 控制器 的路径
             $control_file = APP_PATH.$moeule.DS.'controller'.DS.$control.'.php';
+
             //加载 控制器 的路径
             if(Loadfile::runLoad($control_file)){
                 
@@ -65,7 +58,7 @@ class App{
                 
                 //
                 self::executeMethod($controlurl,$action);
-            
+
             }
             
         }
@@ -84,7 +77,7 @@ class App{
         if(is_file(LIBRARY_PATH.'config.php')){
             
             //加载默认配置
-            \library\bin\Config::load(require LIBRARY_PATH.'config.php');
+            Config::load(require LIBRARY_PATH.'config.php');
             
         }
         
@@ -92,7 +85,7 @@ class App{
         if(is_file(APP_PATH.'config.php')){
 
             //加载应用配置
-            \library\bin\Config::load(require APP_PATH.'config.php');
+            Config::load(require APP_PATH.'config.php');
             
         }
         
@@ -107,7 +100,7 @@ class App{
         if(is_file(LIBRARY_PATH.'common.php')){
         
             //加载默认公共函数库
-            \library\bin\Config::load(require LIBRARY_PATH.'common.php');
+            Config::load(require LIBRARY_PATH.'common.php');
         
         }
         
@@ -115,10 +108,33 @@ class App{
         if(is_file(APP_PATH.'common.php')){
         
             //加载应用函数库
-            \library\bin\Config::load(require APP_PATH.'common.php');
+            Config::load(require APP_PATH.'common.php');
         
         }
         
+    }
+
+    /**
+     * 进行路由相关配置
+     */
+    private static function setRoute(){
+        //判断是否开启路由
+        if(!empty(Config::load('url_route_on'))){
+
+            //默认配置URL设置
+            Url::$urlinfo['moeule']     = Config::load('default_module');
+            Url::$urlinfo['controller'] = Config::load('default_controller');
+            Url::$urlinfo['action']     = Config::load('default_action');
+            Url::$urlinfo['url_id']     = Config::load('url_var_id');
+            Url::$urlinfo['htmlsuffix'] = Config::load('url_html_suffix');
+
+            //解析URL
+            Url::parseUrl();
+
+            return true;
+        }
+
+        return false;
     }
     
     /**

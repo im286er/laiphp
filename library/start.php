@@ -10,4 +10,4 @@ require ROOT_PATH.'/vendor/autoload.php';
 \library\bin\App::run();
 
 
-print_r(\library\bin\Config::load());
+//print_r(\library\bin\Config::load());
