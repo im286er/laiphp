@@ -16,9 +16,9 @@ return array(
         // 服务器地址
         'hostname'       => 'localhost',
         // 数据库名
-        'database'       => 'laixhe',
+        'database'       => 'test',
         // 数据库用户名
-        'username'       => 'laixhe',
+        'username'       => 'root',
         // 数据库密码
         'password'       => '123456',
         // 数据库连接端口

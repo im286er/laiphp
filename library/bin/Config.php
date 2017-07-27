@@ -40,6 +40,30 @@ class Config{
         }
         
     }
+
+    /**
+     * 获取某个配置
+     */
+    public static function get($name){
+        if(empty($name) || !is_string($name)){
+            return '';
+        }
+
+        return isset(self::$config[$name]) ? self::$config[$name] : '';
+    }
+
+    /**
+     * 设置某个配置
+     */
+    public static function set($name, $value = null){
+        if(empty($name) || !is_string($name) || is_null($value)){
+            return false;
+        }
+
+        self::$config[$name] = $value;
+
+        return true;
+    }
      
     /**
      * 重置配置参数
