@@ -7,14 +7,19 @@ namespace library\bin;
 class App{
 
     /**
-     * 错误信息
+     * @var array 错误信息
      */
     private static $error = array();
 
     /**
-     * 标记 实例化对象或执行方法(动态控制器)
+     * @var array 标记实例化对象或执行方法(动态控制器)
      */
     private static $result = array();
+
+    /**
+     * @var Service 服务注册
+     */
+    public static $service;
     
     
     /**
@@ -40,6 +45,9 @@ class App{
         
         //加载公共函数库
         self::common();
+
+        //初始化服务注册
+        self::serviceInit();
 
         //进行路由相关配置
         $isroute = self::setRoute();
@@ -118,6 +126,31 @@ class App{
         
         }
         
+    }
+
+    public static function serviceInit(){
+        $serarray = array();
+
+        //加载默认基本的服务注册配置
+        if(is_file(LIBRARY_PATH.'service.php')){
+            $tmparr = require LIBRARY_PATH.'service.php';
+            if(is_array($tmparr)){
+                $serarray = $tmparr;
+            }
+
+            //加载应用服务注册配置
+            if(is_file(APP_PATH.'service.php')){
+                $tmparr = require APP_PATH.'service.php';
+                if(is_array($tmparr)){
+                    $serarray = array_merge($serarray,$tmparr);
+                }
+            }
+
+        }
+
+        if(!empty($serarray)){
+            self::$service = new Service($serarray);
+        }
     }
 
     /**
@@ -213,7 +246,7 @@ class App{
                 if($RNmethod->isPublic()){
 
                     //调用(动态方法)
-                    call_user_func_array([$obj,$method]);
+                    call_user_func([$obj,$method]);
 
                     //标记
                     self::$result[$name] = true;
