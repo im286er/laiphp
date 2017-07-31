@@ -5,6 +5,12 @@ namespace library\bin;
  * 项目处理类
  */
 class App{
+
+    /**
+     * 错误信息
+     */
+    private static $error = array();
+
     /**
      * 标记 实例化对象或执行方法(动态控制器)
      */
@@ -56,7 +62,7 @@ class App{
                 //拼接 控制器
                 $controlurl = '\\app\\'.$moeule.'\\controller\\'.$control;
                 
-                //
+                //实例化对象或执行方法(动态控制器)
                 self::executeMethod($controlurl,$action);
 
             }
@@ -184,7 +190,8 @@ class App{
                 
                 
             }else{
-                exit('没有这个类：new '.$class.'()');
+                self::$error[] = '没有这个类：new '.$class.'()';
+                return nill;
             }
             
             //没有方法
@@ -192,29 +199,50 @@ class App{
                 
                 //标记
                 self::$result[$name] = true;
+                //返回当前对象
                 return $obj;
                 
             }
             
             //判断是否有这个方法
             if(method_exists($obj, $method)){
+
+                //获取当前类的方法的相关信息
+                $RNmethod = new \ReflectionMethod($obj, $method);
+                //判断当前方法是否是为公开
+                if($RNmethod->isPublic()){
+
+                    //调用(动态方法)
+                    call_user_func_array([$obj,$method]);
+
+                    //标记
+                    self::$result[$name] = true;
+                    //返回当前对象
+                    return $obj;
+
+                }else{
+                    self::$error[] = '这个类: new '.$class.'()->'.$method.'() 没有这个方法';
+                }
                  
-                //调用(动态方法)
-                $obj->$method();
+
                 
-                //标记
-                self::$result[$name] = true;
+
                 
             }else{
-                exit('没有这个方法：new '.$class.'()->'.$method.'()');
+                self::$error[] = '没有这个方法：new '.$class.'()->'.$method.'()';
             }
             
         }
         
-        return true;
+        return nill;
         
     }
-    
-    
-    
+
+
+    /**
+     * 获取错误信息
+     */
+    public static function getError(){
+        return self::$error;
+    }
 }
