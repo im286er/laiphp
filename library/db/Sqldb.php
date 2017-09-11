@@ -55,6 +55,7 @@ class Sqldb{
             switch ($type){
                 case 'mysql':
 
+				    //mysql:host=127.0.0.1;dbname=test;port=3306;charset=utf8
                     // 组合连接 数据库类型 数据库地址 数据库名称 数据库端口 数据库通信字符集
                     $hsdb = "mysql:host={$hostname};dbname={$database};port={$hostport};charset={$charset}";
 
@@ -64,8 +65,10 @@ class Sqldb{
 
                 case 'sqlite':
 
-                    //进行实例化
-                    $this->_db = new PDO('sqlite:'.$hostname);
+				    // 组合连接 数据库类型 数据库地址
+                    $hsdb = 'sqlite:'.$hostname;
+                    // 用于连接sqlite数据库
+                    $this->_db = new PDO(hsdb);
 
                     self::$error[] = 'connect sqlite:'.$hostname;
                     break;
@@ -91,7 +94,7 @@ class Sqldb{
     /**
      * 进行单例模式
      */
-    public static function getdb(){
+    public static function getDb(){
         // 判断自身的单例对象实例是否是自身的实例(单例模式)
         if (! (self::$_ins instanceof self)) {
             self::$_ins = new self();
@@ -117,7 +120,7 @@ class Sqldb{
      * @param bool $insid 用于是否要有'最后插入ID'(默认false)
      * @return int        返回执行成功后的影响行数
      */
-    public function query_sql($sql, $arr = array(), $insid = false){
+    public function query($sql, $arr = array(), $insid = false){
         try {
             // 进行预处理的准备查询语句
             $this->_operate = $this->_db->prepare($sql);
@@ -144,7 +147,7 @@ class Sqldb{
         } catch (PDOException $e) {
             
             // 写入错误
-            self::$error[] = 'query sql error：' . $e->getMessage();
+            self::$error[] = 'exec sql error：' . $e->getMessage();
             self::$error[] = $sql;
         }
     }
@@ -158,7 +161,7 @@ class Sqldb{
      * @param bool $fetch 用于返回结果的方式 true为关联数组(默认) false为索引数组
      * @return array/bool
      */
-    public function fetch_One($sql, $arr = array(), $fetch = true){
+    public function fetch($sql, $arr = array(), $fetch = true){
         try {
             // 进行预处理的准备查询语句
             $this->_operate = $this->_db->prepare($sql);
@@ -191,7 +194,7 @@ class Sqldb{
      * @param bool $fetch 用于返回结果的方式 true为关联数组(默认) false为索引数组
      * @return array/bool
      */
-    public function fetch_All($sql, $arr = array(), $fetch = true){
+    public function fetchAll($sql, $arr = array(), $fetch = true){
         try {
             // 进行预处理的准备查询语句
             $this->_operate = $this->_db->prepare($sql);
@@ -220,10 +223,9 @@ class Sqldb{
     /**
      * 最后插入的自增ID
      */
-    public function insert_id(){
+    public function insertId(){
         return $this->_db->lastInsertId();
     }
-
 
     /**
      * 获取错误信息
