@@ -42,7 +42,7 @@ class Url{
                     
                     //只有控制器和方法
                     self::$urlinfo['controller'] = $infoarr[0];
-                    self::$urlinfo['action'] = $infoarr[2];
+                    self::$urlinfo['action'] = $infoarr[1];
                     break;
                     
                 case 3:
